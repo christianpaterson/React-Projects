@@ -29,7 +29,7 @@ export function Person() {
       </div>
       <br />
       <div>
-        My name is {name} and I am {age} years old
+        {name} is {age} years old
       </div>
     </div>
   );
