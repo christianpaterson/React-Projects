@@ -10,7 +10,7 @@ export function Person() {
         <label htmlFor="nameInput">Enter your name:</label>
         <input
           type="text"
-          name="nameInput"
+          id="nameInput"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
