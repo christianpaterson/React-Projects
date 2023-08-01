@@ -34,5 +34,3 @@ export function Person() {
     </div>
   );
 }
-
-// update the age state and display the state between the two buttons
