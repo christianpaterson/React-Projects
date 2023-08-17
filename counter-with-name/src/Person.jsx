@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export function Person() {
   const [name, setName] = useState("");
-  const [age, setAge] = useState(50);
+  const [age, setAge] = useState(18);
 
   return (
     <div>
@@ -12,20 +12,15 @@ export function Person() {
           type="text"
           id="nameInput"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="nameInput">Change your age:</label>
-        <button
-          id="minus"
-          onClick={() => setAge((currentAge) => currentAge - 1)}
-        >
+        <label>Change your age:</label>
+        <button id="minus" onClick={() => setAge(currentAge => currentAge - 1)}>
           -
         </button>
-        <button onClick={() => setAge((currentAge) => currentAge + 1)}>
-          +
-        </button>
+        <button onClick={() => setAge(currentAge => currentAge + 1)}>+</button>
       </div>
       <br />
       <div>
