@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import { Todo } from "./Todo";
 
 export default function App() {
   const [newTodoName, setNewTodoName] = useState("");
@@ -7,9 +8,9 @@ export default function App() {
 
   function updateTodoList() {
     if (newTodoName === "") return;
-    setTodoList(currentTodos => {
+    setTodoList(currentTodoList => {
       return [
-        ...currentTodos,
+        ...currentTodoList,
         { name: newTodoName, completed: false, id: crypto.randomUUID() },
       ];
     });
@@ -17,17 +18,20 @@ export default function App() {
   }
 
   function toggleTodo(todoId, completed) {
-    setTodoList(currentTodos => {
-      return currentTodos.map(todo => {
-        if (todo.id === todoId) return { ...todo, completed };
-        return todo;
+    setTodoList(currentTodoList => {
+      return currentTodoList.map(todo => {
+        if (todo.id === todoId) {
+          return { ...todo, completed };
+        } else {
+          return todo;
+        }
       });
     });
   }
 
   function deleteTodo(todoId) {
-    setTodoList(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== todoId);
+    setTodoList(currentTodoList => {
+      return currentTodoList.filter(todo => todo.id !== todoId);
     });
   }
 
@@ -36,24 +40,15 @@ export default function App() {
       <ul id="list">
         {todoList.map(todo => {
           return (
-            <li key={todo.id} className="list-item">
-              <label className="list-item-label">
-                <input
-                  type="checkbox"
-                  checked={todo.completed}
-                  onChange={e => toggleTodo(todo.id, e.target.checked)}
-                  data-list-item-checkbox
-                />
-                <span data-list-item-text>{todo.name}</span>
-              </label>
-              <button onClick={() => deleteTodo(todo.id)} data-button-delete>
-                Delete
-              </button>
-            </li>
+            <Todo
+              key={todo.id}
+              {...todo}
+              toggleTodo={toggleTodo}
+              deleteTodo={deleteTodo}
+            />
           );
         })}
       </ul>
-
       <div id="new-todo-form">
         <label htmlFor="todo-input">New Todo</label>
         <input
