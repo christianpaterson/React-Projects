@@ -49,14 +49,15 @@ export default function App() {
         />
       </div>
 
-      {/* <div>{hobbies.join(", ")}</div>
+      {/*Still working on this*/}
+      <div>{hobbies.join(", ")}</div>
       <button
         onClick={() =>
           setHobbies(currentHobbies => [...currentHobbies, "New Hobby"])
         }
       >
         Add Hobby
-      </button> */}
+      </button>
     </>
   );
 }
