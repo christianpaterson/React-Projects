@@ -6,7 +6,8 @@ export default function App() {
   const [newTodoName, setNewTodoName] = useState("");
   const [todoList, setTodoList] = useState([]);
 
-  function updateTodoList() {
+  function updateTodoList(e) {
+    e.preventDefault();
     if (newTodoName === "") return;
     setTodoList(currentList => {
       return [
@@ -49,7 +50,7 @@ export default function App() {
           );
         })}
       </ul>
-      <div id="new-todo-form">
+      <form onSubmit={updateTodoList} id="new-todo-form">
         <label htmlFor="todo-input">New Todo</label>
         <input
           type="text"
@@ -57,8 +58,8 @@ export default function App() {
           value={newTodoName}
           onChange={e => setNewTodoName(e.target.value)}
         />
-        <button onClick={updateTodoList}>Add Todo</button>
-      </div>
+        <button>Add Todo</button>
+      </form>
     </>
   );
 }
