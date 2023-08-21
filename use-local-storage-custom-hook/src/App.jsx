@@ -4,7 +4,6 @@ import { useLocalStorage } from "./useLocalStorage";
 export default function App() {
   const [firstName, setFirstName] = useLocalStorage("FIRST_NAME", "");
 
-  //Still working on this
   const [lastName, setLastName] = useLocalStorage("LAST_NAME", () => {
     return "Default";
   });
@@ -16,14 +15,7 @@ export default function App() {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          marginBottom: "1rem",
-        }}
-      >
+      <div>
         <label>First Name</label>
         <input
           type="text"
@@ -31,16 +23,7 @@ export default function App() {
           onChange={e => setFirstName(e.target.value)}
         />
       </div>
-
-      {/*Still working on this*/}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          marginBottom: "1rem",
-        }}
-      >
+      <div>
         <label>Last Name</label>
         <input
           type="text"
@@ -48,8 +31,6 @@ export default function App() {
           onChange={e => setLastName(e.target.value)}
         />
       </div>
-
-      {/*Still working on this*/}
       <div>{hobbies.join(", ")}</div>
       <button
         onClick={() =>
