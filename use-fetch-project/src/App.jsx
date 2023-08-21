@@ -8,20 +8,19 @@ const URLS = {
   COMMENTS: "https://jsonplaceholder.typicode.com/comments",
 };
 
-// BONUS:
 // const OPTIONS = {
 //   method: "POST",
-//   body: JSON.stringify({ name: "Kyle" }),
+//   body: JSON.stringify({ name: "Chris" }),
 //   headers: {
 //     "Content-type": "application/json",
 //   },
 // }
 
-function App() {
+export default function App() {
   const [url, setUrl] = useState(URLS.USERS);
 
   const { data, isLoading, isError } = useFetch(url);
-  // BONUS: const { data, isLoading, isError } = useFetch(url, OPTIONS)
+  // const { data, isLoading, isError } = useFetch(url, OPTIONS)
 
   return (
     <>
@@ -61,5 +60,3 @@ function App() {
     </>
   );
 }
-
-export default App;
