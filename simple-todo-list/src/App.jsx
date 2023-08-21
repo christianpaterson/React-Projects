@@ -8,20 +8,20 @@ export default function App() {
 
   function updateTodoList() {
     if (newTodoName === "") return;
-    setTodoList(currentTodoList => {
+    setTodoList(currentList => {
       return [
-        ...currentTodoList,
+        ...currentList,
         { name: newTodoName, completed: false, id: crypto.randomUUID() },
       ];
     });
     setNewTodoName("");
   }
 
-  function toggleTodo(todoId, completed) {
-    setTodoList(currentTodoList => {
-      return currentTodoList.map(todo => {
+  function toggleTodo(todoId, checked) {
+    setTodoList(currentList => {
+      return currentList.map(todo => {
         if (todo.id === todoId) {
-          return { ...todo, completed };
+          return { ...todo, completed: checked };
         } else {
           return todo;
         }
@@ -30,8 +30,8 @@ export default function App() {
   }
 
   function deleteTodo(todoId) {
-    setTodoList(currentTodoList => {
-      return currentTodoList.filter(todo => todo.id !== todoId);
+    setTodoList(currentList => {
+      return currentList.filter(todo => todo.id !== todoId);
     });
   }
 
