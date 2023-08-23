@@ -1,7 +1,8 @@
 import "./App.css";
-import { useEffect, useReducer, createContext } from "react";
+import { useEffect, useState, useReducer, createContext } from "react";
 import { NewTodoForm } from "./NewTodoForm";
 import { TodoList } from "./TodoList";
+import { FilterForm } from "./FilterForm";
 
 const LOCAL_STORAGE_KEY = "TODOS";
 const ACTIONS = {
@@ -34,6 +35,8 @@ function reducer(todos, { type, payload }) {
 export const TodoContext = createContext();
 
 export default function App() {
+  const [filterName, setFilterName] = useState("");
+  const [hideCompletedFilter, setHideCompletedFilter] = useState(false);
   const [todos, dispatch] = useReducer(reducer, [], initialValue => {
     const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storedTodos == null) return initialValue;
@@ -43,6 +46,11 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
+
+  const filteredTodos = todos.filter(todo => {
+    if (hideCompletedFilter && todo.completed) return false;
+    return todo.name.includes(filterName);
+  });
 
   function addNewTodo(name) {
     dispatch({ type: ACTIONS.ADD, payload: { name } });
@@ -57,9 +65,19 @@ export default function App() {
   }
 
   return (
-    <TodoContext.Provider value={{ todos, addNewTodo, toggleTodo, deleteTodo }}>
-      <TodoList />
-      <NewTodoForm />
-    </TodoContext.Provider>
+    <>
+      <TodoContext.Provider
+        value={{ todos: filteredTodos, addNewTodo, toggleTodo, deleteTodo }}
+      >
+        <FilterForm
+          name={filterName}
+          setName={setFilterName}
+          hideCompleted={hideCompletedFilter}
+          setHideCompleted={setHideCompletedFilter}
+        />
+        <TodoList />
+        <NewTodoForm />
+      </TodoContext.Provider>
+    </>
   );
 }
