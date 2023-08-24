@@ -4,7 +4,7 @@ import { TodoContext } from "./App";
 import { TodoItem } from "./TodoItem";
 
 export function TodoList() {
-  const { todos, toggleTodo, deleteTodo } = useContext(TodoContext);
+  const { todos } = useContext(TodoContext);
 
   return (
     <ul id="list">

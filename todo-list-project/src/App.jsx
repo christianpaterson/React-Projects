@@ -27,6 +27,13 @@ function reducer(todos, { type, payload }) {
       });
     case ACTIONS.DELETE:
       return todos.filter(todo => todo.id !== payload.id);
+    case ACTIONS.UPDATE:
+      return todos.map(todo => {
+        if (todo.id === payload.id) {
+          return { ...todo, name: payload.name };
+        }
+        return todo;
+      });
     default:
       throw new Error(`No action found for ${type}.`);
   }
@@ -60,6 +67,10 @@ export default function App() {
     dispatch({ type: ACTIONS.TOGGLE, payload: { id: todoId, completed } });
   }
 
+  function updateTodoName(todoId, name) {
+    dispatch({ type: ACTIONS.UPDATE, payload: { id: todoId, name } });
+  }
+
   function deleteTodo(todoId) {
     dispatch({ type: ACTIONS.DELETE, payload: { id: todoId } });
   }
@@ -67,7 +78,13 @@ export default function App() {
   return (
     <>
       <TodoContext.Provider
-        value={{ todos: filteredTodos, addNewTodo, toggleTodo, deleteTodo }}
+        value={{
+          todos: filteredTodos,
+          addNewTodo,
+          toggleTodo,
+          updateTodoName,
+          deleteTodo,
+        }}
       >
         <FilterForm
           name={filterName}
